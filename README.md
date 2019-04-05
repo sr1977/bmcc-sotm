@@ -1,4 +1,15 @@
 # BMCC App
+## TODO
+- Put vault auth token in environment variable and allow pulling in into all the bootstrap.yml
+- tests (spek)
+- add config profiles
+- service discovery
+- implement spring cloud stream
+- kubernetes
+- kafka
+- mongo
+- add some actuator metrics
+- grafana
 
 ## Vault setup
 
