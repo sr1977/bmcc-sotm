@@ -1,0 +1,22 @@
+server:
+  port: 8888
+
+spring:
+  profiles:
+    active: vault, git
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/sr1977/bmcc-sotm-config.git
+          order: 2
+        vault:
+          host: localhost
+          port: 8200
+          order: 1
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'

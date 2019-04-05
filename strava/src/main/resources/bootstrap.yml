@@ -1,0 +1,15 @@
+spring:
+  application:
+    name: strava
+  cloud:
+    config:
+      token: s.fieYFrVdsr8GMCXgDFFrptPi
+      uri: http://config:8888
+---
+spring:
+  profiles: dev
+  cloud:
+    config:
+      token: s.fieYFrVdsr8GMCXgDFFrptPi
+      uri: http://localhost:8888
+
