@@ -1,10 +1,14 @@
 # BMCC App
 
-## Docker components
+## Vault setup
 
-### Vault
+Provides Strava client secret authentication and needs a bit of set up.
 
-Provides Strava client secret authentication
+There is a vault directory in the project and you need to create a "logs" and a "file" directory, after which you'll need to set up the vault keys at http://localhost:8200/ui. You'll also then need to copy the auth token to all bootstrap.yml files in the project.
+
+You'll also need to add the Strava client secret key. You can either use the UI or run:
+
+    docker exec -t vault /bin/sh -c 'export VAULT_ADDR=http://127.0.0.1:8200; export VAULT_TOKEN=<token>; vault kv put secret/strava stava.test=XXXYYYZZZ'
 
 ## Config
 
