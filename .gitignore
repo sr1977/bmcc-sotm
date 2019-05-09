@@ -1,5 +1,6 @@
 .idea/
 build/
+bmcc-sotm-config
 strava.txt
 vault/file
 vault/logs

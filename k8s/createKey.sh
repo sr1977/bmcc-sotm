@@ -1,3 +1,5 @@
+#!/bin/bash
+
 kubectl create secret docker-registry gcr-json-key \
 --docker-server=gcr.io \
 --docker-username=_json_key \

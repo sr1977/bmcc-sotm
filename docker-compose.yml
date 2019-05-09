@@ -1,29 +1,14 @@
 version: '3'
 services:
-  vault:
-    image: vault
-    container_name: vault
-    ports:
-      - "8200:8200"
-    restart: always
-    environment:
-      - VAULT_DEV_ROOT_TOKEN_ID=s.JrrVFYfRo79P8b3OygUUk7yC
-      - VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200
-    volumes:
-      - ./vault/logs:/vault/logs
-      - ./vault/file:/vault/file
-      - ./vault/config:/vault/config
-    cap_add:
-      - IPC_LOCK
-    entrypoint: vault server -config=/vault/config/vault.json
   config:
     build: config
     ports:
       - 8888:8888
   strava:
+    environment:
+      - CONFIG_SERVICE_HOST=config
     build: strava
     depends_on:
       - config
     ports:
-     - "9090:9090"
-    #command: [ "./wait-for.sh", "config:8888", "--", "java", "-jar", "strava-0.0.1-SNAPSHOT.jar"]
+     - "8000:8000"
