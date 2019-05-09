@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: config-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sotm-config
+  replicas: 1 
+  template: 
+    metadata:
+      labels:
+        app: sotm-config
+    spec:
+      containers:
+      - name: sotm-strava
+        image: gcr.io/bmcc-sotm/config
+        ports:
+        - containerPort: 8888

@@ -1,8 +1,7 @@
 package bmcc.sotm.strava.controllers
 
 import bmcc.sotm.strava.handlers.AuthenticationHandler
-import bmcc.sotm.strava.model.StravaAttempt
-import bmcc.sotm.strava.model.StravaSegment
+import bmcc.sotm.strava.model.StravaMember
 import io.micrometer.core.instrument.MeterRegistry
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpHeaders
@@ -13,26 +12,23 @@ import org.springframework.web.reactive.function.client.WebClient
 import reactor.core.publisher.Flux
 
 @RestController
-@RequestMapping("/segments")
-class SegmentController (val client: WebClient, val authenticationHandler: AuthenticationHandler, val meterRegistry: MeterRegistry) {
+@RequestMapping("/members")
+class MemberController (val client: WebClient, val authenticationHandler: AuthenticationHandler, val meterRegistry: MeterRegistry) {
 
     lateinit @Value("\${strava.clubId}") var clubId: String
 
-    @GetMapping("/efforts")
-    fun fetch(segmentId: Int): Flux<StravaAttempt> {
+    @GetMapping
+    fun fetch(): Flux<StravaMember> {
             return authenticationHandler.accessToken()
                     .flux()
                     .flatMap{
-                        meterRegistry.counter("strava.segment.request", "segmentId", segmentId.toString()).increment()
+                        meterRegistry.counter("strava.members.request")
                         client.get()
-                                .uri("/api/v3/segments/$segmentId/leaderboard?club_id=$clubId")
+                                .uri("/api/v3/clubs/$clubId/members")
                                 .header(HttpHeaders.AUTHORIZATION, it)
                                 .retrieve()
-                                .bodyToFlux(StravaSegment::class.java)
-                                .log("SOTM segment")
-                                .flatMap { Flux.fromIterable(it.efforts)  }
-                                .sort()
-                                .log("Sorted segment effort")
+                                .bodyToFlux(StravaMember::class.java)
+                                .log("BMCC Members")
                                 .cache()
                     }
 

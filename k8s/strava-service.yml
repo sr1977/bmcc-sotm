@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: strava-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 9090
+  selector:
+    app: sotm-strava

@@ -1,0 +1,19 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: strava-deployment
+spec:
+  selector:
+    matchLabels:
+      app: sotm-strava
+  replicas: 1 
+  template: 
+    metadata:
+      labels:
+        app: sotm-strava
+    spec:
+      containers:
+      - name: sotm-strava
+        image: gcr.io/bmcc-sotm/strava
+        ports:
+        - containerPort: 9090
