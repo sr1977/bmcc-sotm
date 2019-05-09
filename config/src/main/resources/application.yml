@@ -3,16 +3,12 @@ server:
 
 spring:
   profiles:
-    active: vault, git
+    active: git
   cloud:
     config:
       server:
         git:
           uri: https://github.com/sr1977/bmcc-sotm-config.git
-          order: 2
-        vault:
-          host: localhost
-          port: 8200
           order: 1
 
 management:
